@@ -24,3 +24,12 @@ footer > a {
 .remote code {
 	font-size: 0.8em;
 }
+
+.other td {
+	text-align: center;
+	height: 30px;
+}
+
+.other th {
+	min-width: 300px;
+}
