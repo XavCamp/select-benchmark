@@ -20,3 +20,7 @@ footer > a {
 	float: left;
 	margin-right: 20px;
 }
+
+.remote code {
+	font-size: 0.8em;
+}
