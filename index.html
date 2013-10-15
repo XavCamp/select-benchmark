@@ -28,7 +28,7 @@
 
 		//on remplit les selects
 		window.onload = function () {
-			$('select').append('<optgroup label="Alaskan/Hawaiian Time Zone"><option value="AK">Alaska</option><option disabled value="HI">Hawaii</option></optgroup><optgroup label="Pacific Time Zone"><option value="CA">California</option><option value="NV">Nevada</option><option selected value="OR">Oregon</option><option value="WA">Washington</option></optgroup><optgroup label="Mountain Time Zone"><option value="AZ">Arizona</option><option value="CO">Colorado</option><option value="ID">Idaho</option><option value="MT">Montana</option><option value="NE">Nebraska</option><option value="NM">New Mexico</option><option value="ND">North Dakota</option><option value="UT">Utah</option><option value="WY">Wyoming</option></optgroup>');
+			$('select').not('.remote').append('<optgroup label="Alaskan/Hawaiian Time Zone"><option value="AK">Alaska</option><option disabled value="HI">Hawaii</option></optgroup><optgroup label="Pacific Time Zone"><option value="CA">California</option><option value="NV">Nevada</option><option selected value="OR">Oregon</option><option value="WA">Washington</option></optgroup><optgroup label="Mountain Time Zone"><option value="AZ">Arizona</option><option value="CO">Colorado</option><option value="ID">Idaho</option><option value="MT">Montana</option><option value="NE">Nebraska</option><option value="NM">New Mexico</option><option value="ND">North Dakota</option><option value="UT">Utah</option><option value="WY">Wyoming</option></optgroup>');
 
 			$('select.standart.chosen').prepend('<option></option>').chosen({allow_single_deselect: true});
 			$('select.standart.select2').prepend('<option></option>').select2({allowClear: true});
@@ -37,6 +37,37 @@
 			$('select.multiple.chosen').chosen({max_selected_options: 3});
 			$('select.multiple.select2').select2({ maximumSelectionSize: 3 });
 			$('select.multiple.selectize').selectize({maxItems: 3});
+
+			$('select.remote.chosen').chosen();
+			$('select.remote.select2').select2();
+			$('select.remote.selectize').selectize({
+			    valueField: 'url',
+			    labelField: 'name',
+			    searchField: 'name',
+			    create: false,
+			    render: {
+			        option: function(item, escape) {
+			            return '<div>' +
+			                '<span class="id">' + item.id + '</span> : ' +
+			                '<span class="name">' + escape(item.displayName) + '</span><br>' +
+			                '<span class="date">Présent depuis : ' + new Date(item.dtContractStart) + '</span>' +
+			            '</div>';
+			        }
+			    },
+			    load: function(query, callback) {
+			        if (!query.length) return callback();
+			        $.ajax({
+			            url: 'https://lucca.ilucca.net/api/users?fields=id,displayname,dtContractStart&name=like,' + encodeURIComponent(query),
+			            type: 'GET',
+			            error: function() {
+			                callback();
+			            },
+			            success: function(res) {
+			                callback(res.repositories.slice(0, 10));
+			            }
+			        });
+			    }
+			});;
 		};
 
 	</script>
