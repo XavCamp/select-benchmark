@@ -30,13 +30,13 @@
 		window.onload = function () {
 			$('select').append('<optgroup label="Alaskan/Hawaiian Time Zone"><option value="AK">Alaska</option><option disabled value="HI">Hawaii</option></optgroup><optgroup label="Pacific Time Zone"><option value="CA">California</option><option value="NV">Nevada</option><option selected value="OR">Oregon</option><option value="WA">Washington</option></optgroup><optgroup label="Mountain Time Zone"><option value="AZ">Arizona</option><option value="CO">Colorado</option><option value="ID">Idaho</option><option value="MT">Montana</option><option value="NE">Nebraska</option><option value="NM">New Mexico</option><option value="ND">North Dakota</option><option value="UT">Utah</option><option value="WY">Wyoming</option></optgroup>');
 
-			$('select.standart.chosen').chosen();
-			$('select.standart.select2').select2();
+			$('select.standart.chosen').prepend('<option></option>').chosen({allow_single_deselect: true});
+			$('select.standart.select2').prepend('<option></option>').select2({allowClear: true});
 			$('select.standart.selectize').selectize();
 
-			$('select.multiple.chosen').chosen({max_selected_options: 4});
-			$('select.multiple.select2').select2();
-			$('select.multiple.selectize').selectize();
+			$('select.multiple.chosen').chosen({max_selected_options: 3});
+			$('select.multiple.select2').select2({ maximumSelectionSize: 3 });
+			$('select.multiple.selectize').selectize({maxItems: 3});
 		};
 
 	</script>
@@ -64,12 +64,12 @@
 		<p>Le but de cette page est de comparer les librairies <a href="http://harvesthq.github.io/chosen/">chosen.js</a>, <a href="http://ivaynberg.github.io/select2/">select2.js</a> et <a href="http://brianreavis.github.io/selectize.js/">selectize.js</a>. </p>
 
 		<h2>
-			Select standart, avec optgroup et search, selected et disabled, placeholder et déselection
+			Select standart, optgroup, selected & disabled, search, placeholder & unselect
 		</h2>
 
 		<table>
 			<tr>
-				<th><h4>témoin</h4></th>
+				<th></th>
 				<th><h4>chosen</h4></th>
 				<th><h4>select2</h4></th>
 				<th><h4>selectize</h4></th>
@@ -78,29 +78,34 @@
 				<td><select style="width:200px" class="standart"></select></td>
 				<td><select data-placeholder="placeholder custom" style="width:200px" class="standart chosen"></select></td>
 				<td><select data-placeholder="placeholder custom" style="width:200px" class="standart select2"></select></td>
-				<td><select style="width:200px" class="standart selectize"></select></td>
+				<td><select placeholder="placeholder custom" style="width:200px" class="standart selectize"></select></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><pre><code>$('select.standart.chosen').chosen();</code></pre></td>
-				<td><pre><code>$('select.standart.select2').select2();</code></pre></td>
-				<td><pre><code>$('select.standart.selectize').selectize();</code></pre></td>
+				<td><pre><code>$('select.standart.chosen')
+.prepend('&lt;option&gt;&lt;/option&gt;')
+.chosen({allow_single_deselect: true});</code></pre></td>
+				<td><pre><code>$('select.standart.select2')
+.prepend('&lt;option&gt;&lt;/option&gt;')
+.select2({allowClear: true});</code></pre></td>
+				<td><pre><code>$('select.standart.selectize')
+.selectize();</code></pre></td>
 			</tr>
-			<tr class="error">
-				<td></td>
-				<td></td>
-				<td></td>
-				<td>disabled</td>
+			<tr>
+				<td class="error">search, placeholder</td>
+				<td>data-placeholder</td>
+				<td>data-placeholder</td>
+				<td>placeholder<br><span class="error">disabled</span></td>
 			</tr>
 		</table>
 
 		<h2>
-			Select multiple, avec optgroup, search et 4 éléments max
+			Multiple select, optgroup, search & 3 options max
 		</h2>
 
 		<table>
 			<tr>
-				<th><h4>témoin</h4></th>
+				<th></th>
 				<th><h4>chosen</h4></th>
 				<th><h4>select2</h4></th>
 				<th><h4>selectize</h4></th>
@@ -112,22 +117,164 @@
 				<td><select style="width:200px" multiple class="multiple selectize"></select></td>
 			</tr>
 			<tr>
-				<td></td>
-				<td><pre><code>$('select.multiple.chosen').chosen({max_selected_options: 4});</code></pre></td>
-				<td><pre><code>$('select.multiple.select2').select2();</code></pre></td>
-				<td><pre><code>$('select.multiple.selectize').selectize();</code></pre></td>
+				<td><pre></td>
+				<td><pre><code>$('select.multiple.chosen')
+.chosen({max_selected_options: 3});</code></pre></td>
+				<td><pre><code>$('select.multiple.select2')
+.select2({ maximumSelectionSize: 3 });</code></pre></td>
+				<td><pre><code>$('select.multiple.selectize')
+.selectize({maxItems: 3});</code></pre></td>
 			</tr>
-			<tr class="error">
+			<tr>
+				<td class="error">sélection max</td>
 				<td></td>
 				<td></td>
 				<td></td>
-				<td>disabled</td>
+			</tr>
+		</table>
+
+
+
+		<h2>
+			Remote data
+		</h2>
+
+		<table>
+			<tr>
+				<th></th>
+				<th><h4>chosen</h4></th>
+				<th><h4>select2</h4></th>
+				<th><h4>selectize</h4></th>
+			</tr>
+			<tr>
+				<td><select style="width:200px" class="remote"></select></td>
+				<td><select style="width:200px" class="remote chosen"></select></td>
+				<td><select style="width:200px" class="remote select2"></select></td>
+				<td><select style="width:200px" class="remote selectize"></select></td>
+			</tr>
+			<tr>
+				<td><pre></td>
+				<td><pre><code>$('select.multiple.chosen')
+.chosen({max_selected_options: 3});</code></pre></td>
+				<td><pre><code>$('select.multiple.select2')
+.select2({ maximumSelectionSize: 3 });</code></pre></td>
+				<td><pre><code>$('select.multiple.selectize')
+.selectize({maxItems: 3});</code></pre></td>
+			</tr>
+			<tr>
+				<td class="error">sélection max</td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+
+
+		<h2>
+			Other options
+		</h2>
+
+		<table>
+			<tr>
+				<th></th>
+				<th><h4>chosen</h4></th>
+				<th><h4>select2</h4></th>
+				<th><h4>selectize</h4></th>
+			</tr>
+			<tr>
+				<th>hide search under X options</th>
+				<td>yes</td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<th>create new options</th>
+				<td></td>
+				<td>yes</td>
+				<td>yes</td>
+			</tr>
+			<tr>
+				<th>international / right-to-left</th>
+				<td>yes</td>
+				<td>yes</td>
+				<td>yes</td>
+			</tr>
+			<tr>
+				<th>templating, custom layout for options</th>
+				<td></td>
+				<td>yes</td>
+				<td>yes</td>
+			</tr>
+			<tr>
+				<th>JS events</th>
+				<td>yes</td>
+				<td>yes</td>
+				<td>yes</td>
+			</tr>
+			<tr>
+				<th></th>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<th></th>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+
+
+
+		<h2>
+			Github
+		</h2>
+
+		<table>
+			<tr>
+				<th></th>
+				<th><h4>chosen</h4></th>
+				<th><h4>select2</h4></th>
+				<th><h4>selectize</h4></th>
+			</tr>
+			<tr>
+				<th>doc</th>
+				<td><a href="http://harvesthq.github.io/chosen/">chosen.js</a></td>
+				<td><a href="http://ivaynberg.github.io/select2/">select2.js</a></td>
+				<td><a href="http://brianreavis.github.io/selectize.js/">selectize.js</a></td>
+			</tr>
+			<tr>
+				<th>watch</th>
+				<td>558</td>
+				<td>434</td>
+				<td>85</td>
+			</tr>
+			<tr>
+				<th>stars</th>
+				<td>13732</td>
+				<td>8549</td>
+				<td>1940</td>
+			</tr>
+			<tr>
+				<th>forks</th>
+				<td>2524</td>
+				<td>1437</td>
+				<td>204</td>
+			</tr>
+			<tr>
+				<th>issues (open/closed)</th>
+				<td>164/1445</td>
+				<td>189/1606</td>
+				<td>39/115</td>
 			</tr>
 		</table>
 
 		</section>
 
-		<aside id="sidebar">
+      </div>
+    </div>
+		<footer>
 			<a href="https://github.com/XavCamp/select-benchmark/zipball/master" class="button">
 				<small>Download</small>
 				.zip file
@@ -136,9 +283,7 @@
           <p class="repo-owner"><a href="https://github.com/XavCamp/select-benchmark"></a> is maintained by <a href="https://github.com/XavCamp">XavCamp</a>.</p>
 
           <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
-        </aside>
-      </div>
-    </div>
+        </footer>
 
   
   </body>
