@@ -1,0 +1,17 @@
+.emptyRow {
+	height: 10px;
+}
+
+.inner {
+	width: 90%;
+	padding: 0 5%;
+}
+
+header {
+	padding-left: 200px;
+	padding-right: 200px;
+}
+
+.error {
+	color: red;
+}
