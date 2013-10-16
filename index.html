@@ -231,7 +231,7 @@
         <section id="main-content">
           <h2>
 			<a class="anchor"><span class="octicon octicon-link"></span></a>
-			Réunion Technique Lucca 16/10/13
+			Réunion Technique <a href="http://lucca.fr/">Lucca</a> 16/10/13
 		</h2>
 
 		<p>Le but de cette page est de comparer les librairies <a href="http://harvesthq.github.io/chosen/">chosen.js</a>, <a href="http://ivaynberg.github.io/select2/">select2.js</a> et <a href="http://brianreavis.github.io/selectize.js/">selectize.js</a>. </p>
@@ -409,42 +409,44 @@
 				<td><pre></td>
 				<td><pre><code>$('select.remoteLucca.chosen')
 .chosen();</code></pre></td>
-				<td><pre><code>$('input.remoteLucca.select2').select2({
-	            placeholder: "Search for a user",
-	            minimumInputLength: 1,
-	            ajax: {
-	                url: "http://lucca.local/api/users",
-	                dataType: 'jsonp',
-	                data: function (term, page) {
-	                    return {
-	                        displayname: 'like,' + term,
-	                        fields: 'id,displayname,dtContractStart'
-	                    };
-	                },
-	                results: function (response, page) {
-	                    return {results: response.data};
-	                }
-	            },
-	            initSelection: function(element, callback) {
-	                var id=$(element).val();
-	                if (id!=="") {
-	                    $.ajax("http://lucca.local/api/users", {
-	                        data: {
-	                        	fields: 'id,displayname,dtContractStart',
-	                        	id: element.id
-	                        },
-	                        dataType: "jsonp"
-	                    }).done(function(data) { callback(data); });
-	                }
-	            },
-	            formatResult: function(item) {
-			            return template(item);
-			        },
-	            formatSelection: function (user) { return user.id; },
-	            dropdownCssClass: "bigdrop",
-	            escapeMarkup: function (m) { return m; }
-	        });</code></pre></td>
-				<td><pre><code>$('select.remoteLucca.selectize').selectize({
+				<td><pre><code>$('input.remoteLucca.select2')
+.select2({
+    placeholder: "Search for a user",
+    minimumInputLength: 1,
+    ajax: {
+        url: "http://lucca.local/api/users",
+        dataType: 'jsonp',
+        data: function (term, page) {
+            return {
+                displayname: 'like,' + term,
+                fields: 'id,displayname,dtContractStart'
+            };
+        },
+        results: function (response, page) {
+            return {results: response.data};
+        }
+    },
+    initSelection: function(element, callback) {
+        var id=$(element).val();
+        if (id!=="") {
+            $.ajax("http://lucca.local/api/users", {
+                data: {
+                	fields: 'id,displayname,dtContractStart',
+                	id: element.id
+                },
+                dataType: "jsonp"
+            }).done(function(data) { callback(data); });
+        }
+    },
+    formatResult: function(item) {
+            return template(item);
+        },
+    formatSelection: function (user) { return user.id; },
+    dropdownCssClass: "bigdrop",
+    escapeMarkup: function (m) { return m; }
+});</code></pre></td>
+				<td><pre><code>$('select.remoteLucca.selectize')
+.selectize({
     valueField: 'title',
     labelField: 'title',
     searchField: 'title',
