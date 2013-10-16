@@ -156,6 +156,7 @@
 			$('select.remoteLucca.chosen').prepend('<option></option>').chosen({allow_single_deselect: true}).on('chosen:showing_dropdown', function () {
 				jQuery.ajax({
 					url: 'http://lucca.local/api/users',
+					dataType: 'jsonp',
 					data:{ fields: 'id,displayname,dtContractStart' }
 				}).done(function (response, textStatus, xhr) {
 					$('select.remoteLucca.chosen').append(jQuery.each(response.data, function (index, item) {
@@ -425,6 +426,7 @@
 				<td><pre><code>$('select.remoteLucca.chosen')
 .prepend('&lt;option&gt;&lt;/option&gt;')
 .chosen({allow_single_deselect: true});
+
 jQuery.get('http://lucca.local/api/users',
 	{ fields: 'id,displayname,dtContractStart' },
 	function (response, textStatus, xhr) {
