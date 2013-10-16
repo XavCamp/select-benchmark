@@ -141,7 +141,22 @@
 
 
 
-			$('select.remoteLucca.chosen').chosen();
+
+
+
+			$('select.remoteLucca.chosen').prepend('<option></option>').chosen({allow_single_deselect: true});
+
+			jQuery.get('http://lucca.local/api/users', { fields: 'id,displayname,dtContractStart' }, function (response, textStatus, xhr) {
+			  $('select.remoteLucca.chosen').append(jQuery.each(response.data, function (index, item) {
+			            return '<div>' +
+			                '<span class="id">' + item.id + '</span> : ' +
+			                '<span class="name">' + item.displayName + '</span><br>' +
+			                '<span class="date">Présent depuis : ' + new Date(item.dtContractStart) + '</span>' +
+			            '</div>';
+			        }).join('')).trigger('chosen:updated');
+			});
+			
+
 			$('input.remoteLucca.select2').select2({
 	            placeholder: "Search for a user",
 	            minimumInputLength: 1,
@@ -407,8 +422,12 @@
 			</tr>
 			<tr>
 				<td><pre></td>
-				<td><pre><code>$('select.remoteLucca.chosen')
-.chosen();</code></pre></td>
+				<td><pre><code>$('select.remoteLucca.chosen').prepend('&lt;option&gt;&lt;/option&gt;').chosen({allow_single_deselect: true});
+jQuery.get('http://lucca.local/api/users', { fields: 'id,displayname,dtContractStart' }, function (response, textStatus, xhr) {
+  $('select.remoteLucca.chosen').append(jQuery.each(response.data, function (index, item) {
+            return template(item);
+        }).join('')).trigger('chosen:updated');
+});</code></pre></td>
 				<td><pre><code>$('input.remoteLucca.select2')
 .select2({
     placeholder: "Search for a user",
