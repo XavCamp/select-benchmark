@@ -28,7 +28,7 @@
 
 		//on remplit les selects
 		window.onload = function () {
-			$('select').not('.remote').append('<optgroup label="Alaskan/Hawaiian Time Zone"><option value="AK">Alaska</option><option disabled value="HI">Hawaii</option></optgroup><optgroup label="Pacific Time Zone"><option value="CA">California</option><option value="NV">Nevada</option><option selected value="OR">Oregon</option><option value="WA">Washington</option></optgroup><optgroup label="Mountain Time Zone"><option value="AZ">Arizona</option><option value="CO">Colorado</option><option value="ID">Idaho</option><option value="MT">Montana</option><option value="NE">Nebraska</option><option value="NM">New Mexico</option><option value="ND">North Dakota</option><option value="UT">Utah</option><option value="WY">Wyoming</option></optgroup>');
+			$('select').not('.remote, .remoteLucca').append('<optgroup label="Alaskan/Hawaiian Time Zone"><option value="AK">Alaska</option><option disabled value="HI">Hawaii</option></optgroup><optgroup label="Pacific Time Zone"><option value="CA">California</option><option value="NV">Nevada</option><option selected value="OR">Oregon</option><option value="WA">Washington</option></optgroup><optgroup label="Mountain Time Zone"><option value="AZ">Arizona</option><option value="CO">Colorado</option><option value="ID">Idaho</option><option value="MT">Montana</option><option value="NE">Nebraska</option><option value="NM">New Mexico</option><option value="ND">North Dakota</option><option value="UT">Utah</option><option value="WY">Wyoming</option></optgroup>');
 
 			$('select.standart.chosen').prepend('<option></option>').chosen({allow_single_deselect: true});
 			$('select.standart.select2').prepend('<option></option>').select2({allowClear: true});
@@ -95,34 +95,6 @@
 	            dropdownCssClass: "bigdrop",
 	            escapeMarkup: function (m) { return m; }
 	        });
-			// $('select.remote.selectize').selectize({
-			//     valueField: 'url',
-			//     labelField: 'name',
-			//     searchField: 'name',
-			//     create: false,
-			//     render: {
-			//         option: function(item, escape) {
-			//             return '<div>' +
-			//                 '<span class="id">' + item.id + '</span> : ' +
-			//                 '<span class="name">' + escape(item.displayName) + '</span><br>' +
-			//                 '<span class="date">Présent depuis : ' + new Date(item.dtContractStart) + '</span>' +
-			//             '</div>';
-			//         }
-			//     },
-			//     load: function(query, callback) {
-			//         if (!query.length) return callback();
-			//         $.ajax({
-			//             url: 'http://lucca.ilucca.net/api/users?fields=id,displayname,dtContractStart&name=like,' + encodeURIComponent(query),
-			//             type: 'GET',
-			//             error: function() {
-			//                 callback();
-			//             },
-			//             success: function(res) {
-			//                 callback(res.repositories.slice(0, 10));
-			//             }
-			//         });
-			//     }
-			// });
 			$('select.remote.selectize').selectize({
 			    valueField: 'title',
 			    labelField: 'title',
@@ -166,6 +138,78 @@
 			        });
 			    }
 			});
+
+
+
+			$('select.remoteLucca.chosen').chosen();
+			$('input.remoteLucca.select2').select2({
+	            placeholder: "Search for a user",
+	            minimumInputLength: 1,
+	            ajax: {
+	                url: "http://lucca.local/api/users",
+	                dataType: 'jsonp',
+	                data: function (term, page) {
+	                    return {
+	                        displayname: 'like,' + term,
+	                        fields: 'id,displayname,dtContractStart'
+	                    };
+	                },
+	                results: function (response, page) {
+	                    return {results: response.data};
+	                }
+	            },
+	            initSelection: function(element, callback) {
+	                var id=$(element).val();
+	                if (id!=="") {
+	                    $.ajax("http://lucca.local/api/users", {
+	                        data: {
+	                        	fields: 'id,displayname,dtContractStart',
+	                        	id: element.id
+	                        },
+	                        dataType: "jsonp"
+	                    }).done(function(data) { callback(data); });
+	                }
+	            },
+	            formatResult: function(item) {
+			            return '<div>' +
+			                '<span class="id">' + item.id + '</span> : ' +
+			                '<span class="name">' + item.displayName + '</span><br>' +
+			                '<span class="date">Présent depuis : ' + new Date(item.dtContractStart) + '</span>' +
+			            '</div>';
+			        },
+	            formatSelection: function (user) { return user.id; },
+	            dropdownCssClass: "bigdrop",
+	            escapeMarkup: function (m) { return m; }
+	        });
+			$('select.remoteLucca.selectize').selectize({
+			    valueField: 'displayname',
+			    labelField: 'displayname',
+			    searchField: 'displayname',
+			    create: false,
+			    render: {
+			        option: function(item, escape) {
+			            return '<div>' +
+			                '<span class="id">' + item.id + '</span> : ' +
+			                '<span class="name">' + escape(item.displayName) + '</span><br>' +
+			                '<span class="date">Présent depuis : ' + new Date(item.dtContractStart) + '</span>' +
+			            '</div>';
+			        }
+			    },
+			    load: function(query, callback) {
+			        if (!query.length) return callback();
+			        $.ajax({
+			            url: 'http://lucca.local/api/users?fields=id,displayname,dtContractStart&name=like,' + encodeURIComponent(query),
+			            type: 'GET',
+			            error: function() {
+			                callback();
+			            },
+			            success: function(res) {
+			                callback(res.data);
+			            }
+			        });
+			    }
+			});
+			
 		};
 
 	</script>
@@ -283,9 +327,9 @@
 			</tr>
 			<tr>
 				<td><pre></td>
-				<td><pre><code>$('select.multiple.chosen')
-.chosen({max_selected_options: 3});</code></pre></td>
-				<td><pre><code>$('input.multiple.select2')
+				<td><pre><code>$('select.remote.chosen')
+.chosen();</code></pre></td>
+				<td><pre><code>$('input.remote.select2')
 .select2({
             placeholder: "Search for a movie",
             minimumInputLength: 1,
@@ -331,11 +375,83 @@
     create: false,
     render: {
         option: function(item, escape) {
-            var actors = [];
-            for (var i = 0, n = item.abridged_cast.length; i < n; i++) {
-                actors.push('<span>' + escape(item.abridged_cast[i].name) + '</span>');
+            return template(item);
+        }
+    },
+    load: function(query, callback) {
+        if (!query.length) return callback();
+        $.ajax({
+            url: 'http://api.rottentomatoes.com/api/public/v1.0/movies.json',
+            type: 'GET',
+            dataType: 'jsonp',
+            data: {
+                q: query,
+                page_limit: 10,
+                apikey: '3qqmdwbuswut94jv4eua3j85'
+            },
+            error: function() {
+                callback();
+            },
+            success: function(res) {
+                callback(res.movies);
             }
-
+        });
+    }
+});</code></pre></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><select style="width:200px" class="remoteLucca chosen"></select></td>
+				<td><input style="width:500px" class="remoteLucca select2"></td>
+				<td><select style="width:500px" class="remoteLucca selectize"></select></td>
+			</tr>
+			<tr>
+				<td><pre></td>
+				<td><pre><code>$('select.remoteLucca.chosen')
+.chosen();</code></pre></td>
+				<td><pre><code>$('input.remoteLucca.select2').select2({
+	            placeholder: "Search for a user",
+	            minimumInputLength: 1,
+	            ajax: {
+	                url: "http://lucca.local/api/users",
+	                dataType: 'jsonp',
+	                data: function (term, page) {
+	                    return {
+	                        displayname: 'like,' + term,
+	                        fields: 'id,displayname,dtContractStart'
+	                    };
+	                },
+	                results: function (response, page) {
+	                    return {results: response.data};
+	                }
+	            },
+	            initSelection: function(element, callback) {
+	                var id=$(element).val();
+	                if (id!=="") {
+	                    $.ajax("http://lucca.local/api/users", {
+	                        data: {
+	                        	fields: 'id,displayname,dtContractStart',
+	                        	id: element.id
+	                        },
+	                        dataType: "jsonp"
+	                    }).done(function(data) { callback(data); });
+	                }
+	            },
+	            formatResult: function(item) {
+			            return template(item);
+			        },
+	            formatSelection: function (user) { return user.id; },
+	            dropdownCssClass: "bigdrop",
+	            escapeMarkup: function (m) { return m; }
+	        });</code></pre></td>
+				<td><pre><code>$('select.remoteLucca.selectize').selectize({
+    valueField: 'title',
+    labelField: 'title',
+    searchField: 'title',
+    options: [],
+    create: false,
+    render: {
+        option: function(item, escape) {
             return template(item);
         }
     },
@@ -369,7 +485,7 @@
 		</table>
 
 
-		<h4>Demo Chosen.js <a href="https://zebrock.ilucca-preview.net/timesheet">preview Timesheet</a></h4>
+		<h4>Demo Chosen.js <a href="https://lucca.ilucca-preview.net/timesheet">preview Timesheet</a></h4>
 
 
 
@@ -423,6 +539,18 @@
 			</tr>
 			<tr>
 				<th>search customisation</th>
+				<td></td>
+				<td>yes</td>
+				<td>yes</td>
+			</tr>
+			<tr>
+				<th>iOS support</th>
+				<td>no, but seems ok on iPad</td>
+				<td>yes</td>
+				<td>yes</td>
+			</tr>
+			<tr>
+				<th>Android support</th>
 				<td></td>
 				<td>yes</td>
 				<td>yes</td>
