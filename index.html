@@ -62,6 +62,15 @@
     }
 
 
+    function template (item) {
+    	return '<div>' +
+		    '<span class="id">' + item.id + '</span> : ' +
+		    '<span class="name">' + item.displayName + '</span><br>' +
+		    '<span class="date">Présent depuis : ' + new Date(item.dtContractStart) + '</span>' +
+		'</div>';
+    }
+
+
 			$('input.remote.select2').select2({
 	            placeholder: "Search for a movie",
 	            minimumInputLength: 1,
@@ -144,17 +153,18 @@
 
 
 
-			$('select.remoteLucca.chosen').prepend('<option></option>').chosen({allow_single_deselect: true});
-
-			jQuery.get('http://lucca.local/api/users', { fields: 'id,displayname,dtContractStart' }, function (response, textStatus, xhr) {
-			  $('select.remoteLucca.chosen').append(jQuery.each(response.data, function (index, item) {
-			            return '<div>' +
-			                '<span class="id">' + item.id + '</span> : ' +
-			                '<span class="name">' + item.displayName + '</span><br>' +
-			                '<span class="date">Présent depuis : ' + new Date(item.dtContractStart) + '</span>' +
-			            '</div>';
-			        }).join('')).trigger('chosen:updated');
+			$('select.remoteLucca.chosen').prepend('<option></option>').chosen({allow_single_deselect: true}).on('chosen:showing_dropdown', function () {
+				jQuery.ajax({
+					url: 'http://lucca.local/api/users',
+					data:{ fields: 'id,displayname,dtContractStart' }
+				}).done(function (response, textStatus, xhr) {
+					$('select.remoteLucca.chosen').append(jQuery.each(response.data, function (index, item) {
+				        return template(item);
+				    }).join('')).trigger('chosen:updated');
+				});
 			});
+
+			
 			
 
 			$('input.remoteLucca.select2').select2({
@@ -185,13 +195,7 @@
 	                    }).done(function(data) { callback(data); });
 	                }
 	            },
-	            formatResult: function(item) {
-			            return '<div>' +
-			                '<span class="id">' + item.id + '</span> : ' +
-			                '<span class="name">' + item.displayName + '</span><br>' +
-			                '<span class="date">Présent depuis : ' + new Date(item.dtContractStart) + '</span>' +
-			            '</div>';
-			        },
+	            formatResult: template,
 	            formatSelection: function (user) { return user.id; },
 	            dropdownCssClass: "bigdrop",
 	            escapeMarkup: function (m) { return m; }
@@ -348,25 +352,21 @@
 .select2({
             placeholder: "Search for a movie",
             minimumInputLength: 1,
-            ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
+            ajax: {
                 url: "http://api.rottentomatoes.com/api/public/v1.0/movies.json",
                 dataType: 'jsonp',
                 data: function (term, page) {
                     return {
                         q: term, // search term
                         page_limit: 10,
-                        apikey: "ju6z9mjyajq2djue3gbvv26t" // please do not use so this example keeps working
+                        apikey: "ju6z9mjyajq2djue3gbvv26t"
                     };
                 },
-                results: function (data, page) { // parse the results into the format expected by Select2.
-                    // since we are using custom formatting functions we do not need to alter remote JSON data
+                results: function (data, page) {
                     return {results: data.movies};
                 }
             },
             initSelection: function(element, callback) {
-                // the input tag has a value attribute preloaded that points to a preselected movie's id
-                // this function resolves that id attribute to an object that select2 can render
-                // using its formatResult renderer - that way the movie name is shown preselected
                 var id=$(element).val();
                 if (id!=="") {
                     $.ajax("http://api.rottentomatoes.com/api/public/v1.0/movies/"+id+".json", {
@@ -377,10 +377,10 @@
                     }).done(function(data) { callback(data); });
                 }
             },
-            formatResult: movieFormatResult, // omitted for brevity, see the source of this page
-            formatSelection: movieFormatSelection,  // omitted for brevity, see the source of this page
-            dropdownCssClass: "bigdrop", // apply css that makes the dropdown taller
-            escapeMarkup: function (m) { return m; } // we do not want to escape markup since we are displaying html in results
+            formatResult: movieFormatResult,
+            formatSelection: movieFormatSelection,
+            dropdownCssClass: "bigdrop",
+            escapeMarkup: function (m) { return m; }
         });</code></pre></td>
 				<td><pre><code>$('select.remote.selectize').selectize({
     valueField: 'title',
@@ -422,11 +422,18 @@
 			</tr>
 			<tr>
 				<td><pre></td>
-				<td><pre><code>$('select.remoteLucca.chosen').prepend('&lt;option&gt;&lt;/option&gt;').chosen({allow_single_deselect: true});
-jQuery.get('http://lucca.local/api/users', { fields: 'id,displayname,dtContractStart' }, function (response, textStatus, xhr) {
-  $('select.remoteLucca.chosen').append(jQuery.each(response.data, function (index, item) {
-            return template(item);
-        }).join('')).trigger('chosen:updated');
+				<td><pre><code>$('select.remoteLucca.chosen')
+.prepend('&lt;option&gt;&lt;/option&gt;')
+.chosen({allow_single_deselect: true});
+jQuery.get('http://lucca.local/api/users',
+	{ fields: 'id,displayname,dtContractStart' },
+	function (response, textStatus, xhr) {
+  		$('select.remoteLucca.chosen')
+  		.append(jQuery.each(response.data,
+  			function (index, item) {
+            	return template(item);
+       		}).join('')
+       	).trigger('chosen:updated');
 });</code></pre></td>
 				<td><pre><code>$('input.remoteLucca.select2')
 .select2({
@@ -464,37 +471,30 @@ jQuery.get('http://lucca.local/api/users', { fields: 'id,displayname,dtContractS
     dropdownCssClass: "bigdrop",
     escapeMarkup: function (m) { return m; }
 });</code></pre></td>
-				<td><pre><code>$('select.remoteLucca.selectize')
-.selectize({
-    valueField: 'title',
-    labelField: 'title',
-    searchField: 'title',
-    options: [],
-    create: false,
-    render: {
-        option: function(item, escape) {
-            return template(item);
-        }
-    },
-    load: function(query, callback) {
-        if (!query.length) return callback();
-        $.ajax({
-            url: 'http://api.rottentomatoes.com/api/public/v1.0/movies.json',
-            type: 'GET',
-            dataType: 'jsonp',
-            data: {
-                q: query,
-                page_limit: 10,
-                apikey: '3qqmdwbuswut94jv4eua3j85'
-            },
-            error: function() {
-                callback();
-            },
-            success: function(res) {
-                callback(res.movies);
-            }
-        });
-    }
+				<td><pre><code>$('select.remoteLucca.selectize').selectize({
+	valueField: 'displayname',
+	labelField: 'displayname',
+	searchField: 'displayname',
+	create: false,
+	render: {
+	    option: function(item, escape) {
+	        return template(item);
+	    }
+	},
+	load: function(query, callback) {
+	    if (!query.length) return callback();
+	    $.ajax({
+	        url: 'http://lucca.local/api/users?fields=id,displayname,dtContractStart&name=like,'
+	        + encodeURIComponent(query),
+	        type: 'GET',
+	        error: function() {
+	            callback();
+	        },
+	        success: function(res) {
+	            callback(res.data);
+	        }
+	    });
+	}
 });</code></pre></td>
 			</tr>
 			<tr>
