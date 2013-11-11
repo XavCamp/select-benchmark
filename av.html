@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		body, div {
+			margin: 0;
+			padding: 0;
+	    	border-radius: 50%;
+		}
+
+		#container {
+			position: absolute;
+			background-color: #FD6602;
+			height: 620px;
+			width: 620px;
+			border-radius: 0;
+		}
+		.border {
+		    border: 10px solid black;
+		}
+
+		#headContainer {
+		    position: absolute;
+		    left: 210px;
+		    width: 250px;
+		    height: 300px;
+		    top: 90px;
+		}
+		#headBackground {
+			position: absolute;
+		    width: 100%;
+		    height: 100%;
+		    background-color: #FBEDE2;
+		    border-left: none;
+		}
+		#head {
+			-webkit-transform: rotate(-23deg);
+			transform: rotate(-23deg);
+			top: 1%;
+			left: 13%;
+			position: absolute;
+			width: 85%;
+			height: 91%;
+			background-color: white;
+		}
+
+		.hair {
+			opacity: 0.7;
+			background-color: #B89477;
+		    position: absolute;
+		}
+
+		#topLeft {
+			border-top: 0px;
+		    width: 29%;
+		    height: 61%;
+		    -webkit-transform: rotate(25deg);
+		    transform: rotate(25deg);
+		}
+		#topRight {
+			border-right: 0px;
+			top: -12%;
+			left: 51%;
+			width: 35%;
+			height: 69%;
+			-webkit-transform: rotate(-53deg);
+		    transform: rotate(-53deg);
+		}
+
+		.ponytail {
+			border-right: 0px;
+			border-bottom: 0px;
+		}
+		.ponytailBackground {
+			background-color: white;
+			opacity: 1;
+		}
+		.ponytail1 {
+			height: 67%;
+			width: 59%;
+			left: -37%;
+			top: 6%;
+		}
+		.ponytailShaping {
+			background-color: white;
+			opacity: 1;
+			left: -10%;
+			top: 19%;
+		}
+		.ponytail2 {
+			-webkit-transform: rotate(72deg);
+		    transform: rotate(72deg);
+			height: 44%;
+			width: 29%;
+			left: -46%;
+			top: 58%;
+			border-top: none;
+		}
+
+		#ear {
+		    background-color: #FBEDE2;
+			position: absolute;
+			border-right: none;
+			border-radius: 50% 50% 0 73%;
+			height: 20%;
+			width: 12%;
+			top: 60%;
+			left: -6%;
+			-webkit-transform: rotate(-21deg);
+		    transform: rotate(-21deg);
+		}
+
+		.face {
+			position: absolute;
+			border-right: none;
+			border-top: none;
+			border-bottom: none;
+			-webkit-transform: rotate(-90deg);
+		    transform: rotate(-90deg);
+		}
+		#leftEye {
+			left: 43%;
+			top: 41%;
+		    height: 14%;
+		    width: 12%;
+		}
+		#rightEye {
+			left: 75%;
+			top: 48%;
+		    height: 12%;
+		    width: 10%;
+		}
+		#mouth {
+			left: 60%;
+			top: 66%;
+		    height: 12%;
+		    width: 12%;
+		}
+
+
+
+		#bodyContainer {
+			position: absolute;
+			background-color: white;
+			height: 200px;
+			width: 300px;
+			top: 420px;
+			left: 200px;
+			border-radius: 30% 53% 0 0;
+			border-left: 10px solid black;
+		}
+
+	</style>
+</head>
+<body>
+	<div id="container">
+		<div id="headContainer">
+			<div class="hair ponytail2 ponytailBackground"></div>
+			<div class="hair ponytail1 ponytailBackground"></div>
+			<div class="hair border ponytail2 ponytail"></div>
+			<div class="hair border ponytail1 ponytail"></div>
+			<div class="hair ponytail1 ponytailShaping"></div>
+			<div id="headBackground" class="border"></div>
+			<div id="head"></div>
+			<div class="border" id="ear"></div>
+			<div class="hair border" id="topLeft"></div>
+			<div class="hair border" id="topRight"></div>
+			<div class="border face" id="leftEye"></div>
+			<div class="border face" id="rightEye"></div>
+			<div class="border face" id="mouth"></div>
+		</div>
+		<div id="bodyContainer">
+			<div id="neck"></div>
+		</div>
+	</div>
+</body>
+</html>
