@@ -7,31 +7,39 @@
 			margin: 0;
 			padding: 0;
 	    	border-radius: 50%;
+	    	position: absolute;
+	    	border-color: black;
+	    	border-width: 10px;
 		}
 
 		#container {
-			position: absolute;
 			background-color: #FD6602;
 			height: 620px;
 			width: 620px;
 			border-radius: 0;
+			overflow: hidden;
 		}
 		.border {
-		    border: 10px solid black;
+		    border-style: solid;
+		}
+		.flesh {
+		    background-color: #FBEDE2;
 		}
 
 		#headContainer {
-		    position: absolute;
 		    left: 210px;
 		    width: 250px;
 		    height: 300px;
-		    top: 90px;
+		    top: 140px;
 		}
 		#headBackground {
-			position: absolute;
 		    width: 100%;
-		    height: 100%;
-		    background-color: #FBEDE2;
+		    height: 105%;
+		}
+		#headBorder {
+			top: 4%;
+		    width: 100%;
+		    height: 96%;
 		    border-left: none;
 		}
 		#head {
@@ -39,7 +47,6 @@
 			transform: rotate(-23deg);
 			top: 1%;
 			left: 13%;
-			position: absolute;
 			width: 85%;
 			height: 91%;
 			background-color: white;
@@ -48,7 +55,6 @@
 		.hair {
 			opacity: 0.7;
 			background-color: #B89477;
-		    position: absolute;
 		}
 
 		#topLeft {
@@ -99,8 +105,6 @@
 		}
 
 		#ear {
-		    background-color: #FBEDE2;
-			position: absolute;
 			border-right: none;
 			border-radius: 50% 50% 0 73%;
 			height: 20%;
@@ -112,7 +116,6 @@
 		}
 
 		.face {
-			position: absolute;
 			border-right: none;
 			border-top: none;
 			border-bottom: none;
@@ -126,14 +129,14 @@
 		    width: 12%;
 		}
 		#rightEye {
-			left: 75%;
-			top: 48%;
+			left: 80%;
+			top: 49%;
 		    height: 12%;
 		    width: 10%;
 		}
 		#mouth {
-			left: 60%;
-			top: 66%;
+			left: 64%;
+			top: 69%;
 		    height: 12%;
 		    width: 12%;
 		}
@@ -141,37 +144,184 @@
 
 
 		#bodyContainer {
-			position: absolute;
 			background-color: white;
-			height: 200px;
-			width: 300px;
-			top: 420px;
-			left: 200px;
+			height: 150px;
+			width: 290px;
+			bottom: 0;
+			left: 190px;
 			border-radius: 30% 53% 0 0;
-			border-left: 10px solid black;
 		}
+		#bodyShape {
+			left: 6%;
+			height: 100%;
+			width: 89%;
+			border-radius: 27% 44% 0 0;
+			overflow: hidden;
+			border-left-style: solid;
+			border-top-style: solid;
+			-webkit-transform: rotate(4deg);
+		    transform: rotate(4deg);
+		}
+		#bodyShadow {
+			left: 7%;
+			height: 37%;
+			width: 33%;
+			border-radius: 76% 32% 79% 0;
+		}
+
+		.neck {
+			height: 22%;
+			border-radius: 0;
+			top: -15%;
+		}
+		#neck {
+			background-color: white;
+			width: 18%;
+			left: 40%;
+		}
+		#neckBackground {
+			width: 26%;
+			left: 32%;
+			border-right-style: solid;
+		}
+
+		#collar {
+			top: -31%;
+			left: 10%;
+			border-top: none;
+			width: 69%;
+			height: 70%;
+		}
+
+		.stripe {
+			border-top: none;
+		}
+		.blueStripe {
+			border-color: #C2D6F1;
+			border-width: 20px;
+			opacity: 0.7;
+		}
+		#blueStripe1 {
+			top: -44%;
+			left: 1%;
+			width: 101%;
+			height: 94%;
+		}
+		#blueStripe2 {
+			top: -19%;
+			left: 0;
+			width: 101%;
+			height: 86%;
+			-webkit-transform: rotate(-5deg);
+		    transform: rotate(-5deg);
+		}
+		#blueStripe3 {
+			top: 54%;
+			left: 10%;
+			width: 92%;
+			height: 30%;
+			-webkit-transform: rotate(-8deg);
+		    transform: rotate(-8deg);
+		}
+		#blackStripe1 {
+			top: -42%;
+			left: 9%;
+			width: 116%;
+			height: 94%;
+			-webkit-transform: rotate(-15deg);
+		    transform: rotate(-15deg);
+		}
+		#blackStripe2 {
+			top: -6%;
+			left: -14%;
+			width: 93%;
+			height: 76%;
+			-webkit-transform: rotate(9deg);
+		    transform: rotate(9deg);
+		}
+		#blackStripe3 {
+			top: 38%;
+			left: 11%;
+			width: 79%;
+			height: 47%;
+			-webkit-transform: rotate(-6deg);
+		    transform: rotate(-6deg);
+		}
+
+		.boob {
+			border-right-style: solid;
+			width: 33%;
+		}
+		#rightBoob {
+			height: 76%;
+			right: -2%;
+			top: 33%;
+		}
+		#leftBoob {
+			height: 61%;
+			left: 39%;
+			top: 45%;
+		}
+
+		#leftArmShadow {
+			height: 51%;
+			bottom: 0;
+			width: 15%;
+			border-radius: 30% 30% 0 0;
+			left: 9%;
+		}
+		#leftArm {
+			left: 19%;
+			background-color: white;
+			border-right-style: solid;
+			height: 29%;
+			bottom: -2%;
+			width: 5%;
+			border-radius: 30% 0 0 0;
+			-webkit-transform: rotate(7deg);
+		    transform: rotate(7deg);
+		}
+
+
 
 	</style>
 </head>
 <body>
 	<div id="container">
+		<div id="bodyContainer">
+			<div class="flesh" id="bodyShadow"></div>
+			<div class="flesh" id="leftArmShadow"></div>
+			<div id="bodyShape">
+				<div class="border" id="collar"></div>
+				<div class="border stripe blueStripe" id="blueStripe1"></div>
+				<div class="border stripe blueStripe" id="blueStripe2"></div>
+				<div class="border stripe blueStripe" id="blueStripe3"></div>
+				<div class="border stripe" id="blackStripe1"></div>
+				<div class="border stripe" id="blackStripe2"></div>
+				<div class="border stripe" id="blackStripe3"></div>
+			</div>
+			<div class="neck flesh" id="neckBackground"></div>
+			<div class="neck" id="neck"></div>
+			<div class="boob" id="rightBoob"></div>
+			<div class="boob" id="leftBoob"></div>
+			<div id="leftArm"></div>
+			
+		</div>
 		<div id="headContainer">
 			<div class="hair ponytail2 ponytailBackground"></div>
 			<div class="hair ponytail1 ponytailBackground"></div>
 			<div class="hair border ponytail2 ponytail"></div>
 			<div class="hair border ponytail1 ponytail"></div>
 			<div class="hair ponytail1 ponytailShaping"></div>
-			<div id="headBackground" class="border"></div>
+			<div class="flesh" id="headBackground"></div>
+			<div class="border" id="headBorder"></div>
 			<div id="head"></div>
-			<div class="border" id="ear"></div>
+			<div class="border flesh" id="ear"></div>
 			<div class="hair border" id="topLeft"></div>
 			<div class="hair border" id="topRight"></div>
 			<div class="border face" id="leftEye"></div>
 			<div class="border face" id="rightEye"></div>
 			<div class="border face" id="mouth"></div>
-		</div>
-		<div id="bodyContainer">
-			<div id="neck"></div>
 		</div>
 	</div>
 </body>
