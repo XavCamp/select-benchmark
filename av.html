@@ -155,7 +155,10 @@
 			left: 6%;
 			height: 100%;
 			width: 89%;
-			border-radius: 27% 44% 0 0;
+			border-top-left-radius: 25% 25%;
+			border-top-right-radius: 44%;
+			border-bottom-left-radius: 0;
+			border-bottom-right-radius: 0;
 			overflow: hidden;
 			border-left-style: solid;
 			border-top-style: solid;
@@ -247,6 +250,22 @@
 			-webkit-transform: rotate(-6deg);
 		    transform: rotate(-6deg);
 		}
+		#blackStripe4 {
+			top: 39%;
+			left: 3%;
+			width: 15%;
+			height: 8%;
+			-webkit-transform: rotate(27deg);
+		    transform: rotate(27deg);
+		}
+		#blackStripe5 {
+			top: 55%;
+			left: 87%;
+			width: 3%;
+			height: 1%;
+			-webkit-transform: rotate(-24deg);
+		    transform: rotate(-24deg);
+		}
 
 		.boob {
 			border-right-style: solid;
@@ -281,6 +300,15 @@
 			-webkit-transform: rotate(7deg);
 		    transform: rotate(7deg);
 		}
+		#rightArm {
+			right: -1%;
+			border-right-style: solid;
+			height: 16%;
+			bottom: 0%;
+			border-radius: 30% 0 0 0;
+			-webkit-transform: rotate(-4deg);
+		    transform: rotate(-4deg);
+		}
 
 
 
@@ -299,12 +327,15 @@
 				<div class="border stripe" id="blackStripe1"></div>
 				<div class="border stripe" id="blackStripe2"></div>
 				<div class="border stripe" id="blackStripe3"></div>
+				<div class="border stripe" id="blackStripe4"></div>
+				<div class="border stripe" id="blackStripe5"></div>
 			</div>
 			<div class="neck flesh" id="neckBackground"></div>
 			<div class="neck" id="neck"></div>
 			<div class="boob" id="rightBoob"></div>
 			<div class="boob" id="leftBoob"></div>
 			<div id="leftArm"></div>
+			<div id="rightArm"></div>
 			
 		</div>
 		<div id="headContainer">
