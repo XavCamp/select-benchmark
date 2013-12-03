@@ -3,15 +3,36 @@
 <head>
 	<title></title>
 	<style type="text/css">
+		body.hide #container,
+		body.hide button,
+		body.hide legend {
+			display: none;
+		}
 		body, div {
 			margin: 0;
 			padding: 0;
-	    	border-radius: 50%;
-	    	position: absolute;
 	    	border-color: black;
 	    	border-width: 10px;
 		}
+		div {
+	    	border-radius: 50%;
+	    	position: absolute;
+		}
+		.picasso div {
+			border-radius: 0 !important;
+		}
+		.crayon div {
+			border-width: 1px;
+		}
+		.blonde .hair {
+			background-color: yellow;
+		}
 
+
+		legend {
+			position: relative;
+			top: 620px;
+		}
 		#container {
 			background-color: #FD6602;
 			height: 620px;
@@ -140,7 +161,7 @@
 		.ponytailShaping2 {
 			width: 18%;
 			height: 30%;
-			background-color: #FD6602;
+			background-color: #FD6602 !important;
 			opacity: 1;
 			left: -51%;
 			top: 55%;
@@ -251,7 +272,7 @@
 		.stripe {
 			border-top: none;
 		}
-		.blueStripe {
+		div.blueStripe {
 			border-color: #C2D6F1;
 			border-width: 20px;
 			opacity: 0.7;
@@ -362,12 +383,17 @@
 		    transform: rotate(-4deg);
 		}
 
+		button {
+			float: right;
+			clear: both;
+		}
+
 
 
 	</style>
 </head>
-<body>
-	<div id="container" style="display: none;">
+<body class="hide">
+	<div id="container">
 		<div id="bodyContainer">
 			<div class="flesh" id="bodyShadow"></div>
 			<div class="flesh" id="leftArmShadow"></div>
@@ -411,6 +437,12 @@
 		</div>
 		<img id="model" src="https://scontent-b-cdg.xx.fbcdn.net/hphotos-prn1/47299_439834493183_1695422_n.jpg">
 	</div>
+	<button type="button" onclick="document.body.className = null;">Normal</button>
+	<button type="button" onclick="document.body.className = 'picasso';">Picasso</button>
+	<button type="button" onclick="document.body.className = 'crayon';">Crayon</button>
+	<button type="button" onclick="document.body.className = 'blonde';">Blonde</button>
+	<button type="button" onclick="document.body.className = 'blonde crayon picasso';">All</button>
+	<legend>Dessin original ©<a href="https://www.facebook.com/cml.illustration" target="_blank">Clotilde Martin-Lemerle</a></legend>
 	Il faut ouvrir la page dans Chrome !
 	<br/>
 	<a href="https://scontent-b-cdg.xx.fbcdn.net/hphotos-prn1/47299_439834493183_1695422_n.jpg">original</a>
@@ -418,7 +450,7 @@
 <script type="text/javascript">
 	window.onload = function () {
 		if(window.chrome) {
-			document.getElementById("container").style.cssText = null;
+			document.body.className = null;
 		}
 	};
 </script>
