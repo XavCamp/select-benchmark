@@ -19,6 +19,18 @@
 			border-radius: 0;
 			overflow: hidden;
 		}
+		#container:hover {
+			visibility: none;
+		}
+		#model {
+			display: none;
+			width: inherit;
+			position: absolute;
+		}
+		#container:hover #model {
+			display: block;
+		}
+
 		.border {
 		    border-style: solid;
 		}
@@ -50,6 +62,27 @@
 			width: 85%;
 			height: 91%;
 			background-color: white;
+		}
+		#headHairShaping {
+			-webkit-transform: rotate(-50deg);
+			transform: rotate(-50deg);
+			background-color: white;
+			width: 14%;
+			height: 48%;
+			top: -7%;
+			left: 65%;
+		}
+		#headHairStripes {
+			border-radius: 30% 45% 53% 58%;
+			-webkit-transform: rotate(-50deg);
+			transform: rotate(-50deg);
+			width: 10%;
+			height: 50%;
+			top: 7%;
+			left: 63%;
+			border-top: none;
+			border-bottom: none;
+			opacity: 0.7;
 		}
 
 		.hair {
@@ -111,7 +144,17 @@
 			opacity: 1;
 			left: -51%;
 			top: 55%;
+			border-left: none;
+			border-top: none;
+			border-bottom: none;
 		}
+		.ponytail2.ponytailBackground {
+			left: -50%;
+			height: 44%;
+			top: 56%;
+			width: 33%;
+		}
+
 
 		#ear {
 			border-right: none;
@@ -324,7 +367,7 @@
 	</style>
 </head>
 <body>
-	<div id="container">
+	<div id="container" style="display: none;">
 		<div id="bodyContainer">
 			<div class="flesh" id="bodyShadow"></div>
 			<div class="flesh" id="leftArmShadow"></div>
@@ -348,10 +391,10 @@
 			
 		</div>
 		<div id="headContainer">
-			<div class="hair ponytail2 ponytailBackground"></div>
-			<div class="hair ponytail1 ponytailBackground"></div>
+			<div class="ponytail2 ponytailBackground"></div>
+			<div class="ponytail1 ponytailBackground"></div>
 			<div class="hair ponytail2 ponytail"></div>
-			<div class="hair ponytail2 ponytailShaping2"></div>
+			<div class="hair border ponytail2 ponytailShaping2"></div>
 			<div class="hair border ponytail1 ponytail"></div>
 			<div class="hair ponytail1 ponytailShaping1"></div>
 			<div class="flesh" id="headBackground"></div>
@@ -360,11 +403,23 @@
 			<div class="border flesh" id="ear"></div>
 			<div class="hair border" id="topLeft"></div>
 			<div class="hair border" id="topRight"></div>
+			<div id="headHairShaping"></div>
+			<div class="border" id="headHairStripes"></div>
 			<div class="border face" id="leftEye"></div>
 			<div class="border face" id="rightEye"></div>
 			<div class="border face" id="mouth"></div>
 		</div>
+		<img id="model" src="https://scontent-b-cdg.xx.fbcdn.net/hphotos-prn1/47299_439834493183_1695422_n.jpg">
 	</div>
+	Il faut ouvrir la page dans Chrome !
+	<br/>
 	<a href="https://scontent-b-cdg.xx.fbcdn.net/hphotos-prn1/47299_439834493183_1695422_n.jpg">original</a>
 </body>
+<script type="text/javascript">
+	window.onload = function () {
+		if(window.chrome) {
+			document.getElementById("container").style.cssText = null;
+		}
+	};
+</script>
 </html>
